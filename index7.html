@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #registration-form{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        #login-form{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        #login-div{
+            display: none;
+        }
+    </style>
+   
+</head>
+<body>
+    <button id="reg-btn">registration</button>
+    <button id="login-btn">login</button>
+    <div id="registration-form">
+        <h1>Registration Form</h1>
+       <form >
+        <label>
+            Username:
+        </label>
+        <input id="reg-name" type="text"><br>
+        <label>
+            Email:
+        </label>
+        <input  id="reg-email"type="email"><br>
+        <label>
+            password:
+        </label>
+        <input id="reg-pass"  type="password"><br/>
+        <input type="submit" id="reg-submit" >
+       </form>
+    </div>
+    <div id="login-div">
+        <div id="login-form">
+            <h1>Login Form</h1>
+            <label>Email:</label>
+            <input type="email" id="login-name"><br/>
+            <label>Password:</label>
+            <input type="password" id="login-pass"><br/>
+            <input type="submit" id="login-submit">
+        </div>
+    </div>
+    <p id="login-info"></p>
+   <script type="module">
+        let newArr=[];
+        let regBtn = document.getElementById("reg-btn")
+        let loginBtn = document.getElementById("login-btn")
+        let regForm = document.getElementById("registration-form")
+        let newName = document.getElementById("reg-name")
+        let newEmail = document.getElementById("reg-email")
+        let newPass = document.getElementById("reg-pass")
+        let regSubmit = document.getElementById("reg-submit")
+        let loginForm = document.getElementById("login-form")
+        let logSubmit = document.getElementById("login-submit")
+        let logName = document.getElementById("login-name")
+        let logPass = document.getElementById("login-pass")
+        let loginDiv = document.getElementById("login-div")
+        let validname =/[a-z]/g;
+        let validPass =  /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
+        let validEmail =  /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+        regBtn.addEventListener("click",(event)=>{
+            regForm.style.display="flex"
+            loginDiv.style.display="none"
+        })
+        loginBtn.addEventListener("click",(event)=>{
+            regForm.style.display="none"
+            loginDiv.style.display="block"
+        })
+        regSubmit.addEventListener("click",(event)=>{
+            event.preventDefault();
+            console.log("hello")
+            let regCount = 0;
+            for(let key in newArr){
+                if(newArr[key].name===newName.value&&newArr[key].email===newEmail.value){
+                    regCount++;
+                }
+                
+        }
+        if(regCount===0){
+            if(newName.value!==""&&newName.value.match(validname)&&newPass.value.length>8&&newPass.value.match(validPass)&&newEmail.value.match(validEmail)){
+                let obj={name:newName.value,password:newPass.value,email:newEmail.value}
+                newArr.push(obj)
+                console.log(newArr)
+            }
+        } 
+        else{
+            alert("already exist")
+        } 
+       
+        })
+        logSubmit.addEventListener("click",(event)=>{
+            let logCount=0;
+            event.preventDefault();
+            for(let key in newArr){
+                if(newArr[key].email===logName.value && newArr[key].password===logPass.value){
+                    logCount++;
+                }
+            }
+            if(logCount===1){
+                    console.log("true")
+                }
+                else{
+                    console.log("false")
+                }
+        })
+       
+    </script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="image-holder">
+
+    </div>
+    <script>
+         function loadImage(url) {
+    return new Promise((resolve, reject) => {
+      let img = new Image();
+      img.addEventListener('load', e => resolve(img));
+      img.addEventListener('error', () => {
+        reject(new Error(`Failed to load images URL: ${url}`));
+      });
+      img.src = url;
+    });
+  }
+
+  loadImage( `//images.ctfassets.net/yadj1kx9rmg0/wtrHxeu3zEoEce2MokCSi/cf6f68efdcf625fdc060607df0f3baef/quwowooybuqbl6ntboz3.jpg`)
+    .then(img => document.getElementById('image-holder').appendChild(img))
+    .catch(error => console.error(error));
+    </script>
+</body>
+</html>
